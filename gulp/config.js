@@ -20,7 +20,7 @@ module.exports = {
   js: {
     src: src + '/js/**',
     dest: dest + '/js',
-    uglify: true
+    uglify: false
   },
 
   // webpackの設定
@@ -32,6 +32,15 @@ module.exports = {
     resolve: {
       extensions: ['', '.js']
     },
+    module: {  // ここを追記
+      loaders: [
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          loader: 'babel-loader'
+        }
+      ]
+    }
   },
 
    // stylus
