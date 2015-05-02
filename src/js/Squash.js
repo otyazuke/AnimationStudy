@@ -1,22 +1,24 @@
 import MakeBase from './MakeBase'
+import Box from './Box'
 
 export default class Squash{
 
-	const(){
-		this.scene = new THREE.Scene(); //シーン作成
-		this.makeBase = new MakeBase;  //makeBaseインスタンスを作成
+	constructor(){
+		this.makeBase = new MakeBase();  //makeBaseインスタンスを作成
+		this.box = new Box();
+		this.makeBase.add(this.box);
+		this.jump = new jump(this.box);
 	}
 
-	getRendrer(){
-		var rendrer = this.makeBase.makeRendrer();
+	getDomElement(){
+		return this.makeBase.getDomElement();
 	}
 
-	getCamera(){
-		var camera = this.makeBase.makeCamera();
+	render(){
+		this.jump.updata();
+		this.makeBase.render();
+
 	}
 
-	getScene(){
-		this.makeBase.makeLight(scene);
-		this.makeBase.makeCube(scene);
-	}
 }
+
