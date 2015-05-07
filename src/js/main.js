@@ -13,6 +13,7 @@ function render()
 {
 	squash.render();
 	requestAnimationFrame(render);
+	console.log(new Date().getTime() / 100000);
 }
 
 

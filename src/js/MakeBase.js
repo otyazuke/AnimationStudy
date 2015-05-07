@@ -15,8 +15,10 @@ export default class MakeBase {
 	}
 	setupCamera(){
 		this.camera = new THREE.PerspectiveCamera(40, this.width / this.height, 1, 1000);
-		this.camera.position.z = -400;
+		this.camera.position.z = -800;
 		this.camera.position.y = 200;
+		this.camera.position.x = -100;
+		//this.camera.position.set(0,0,0);
 		this.camera.lookAt(new THREE.Vector3(0,0,0));
 	}
 
@@ -30,7 +32,7 @@ export default class MakeBase {
 	
 	render()
 	{
-		this.renderer.render(this.scene, this.camera);
+		this.renderer.render(this.scene, this.camera);  //レンダリング
 	}
 
 	getDomElement(){
@@ -40,6 +42,10 @@ export default class MakeBase {
 	add(mesh){
 		if (mesh instanceof THREE.Object3D){
 			this.scene.add(mesh);
+			//AxisHelperを追加
+			var axis = new THREE.AxisHelper(1000);
+			axis.position.set(0,0,0);
+			this.scene.add(axis);
 		}else{
 			console.log("not mesh")
 		}
