@@ -2,6 +2,7 @@ export default class TimerSquash {
 
 	constructor(){
 		this.moveCount = 0;
+		this.stretchCount = 0;
 		this.bottomCount = 0;
 		this.topCount = 0;
 	}
@@ -18,6 +19,21 @@ export default class TimerSquash {
 			return 3;
 		}else{
 			this.moveCount = 0;
+		}
+	}
+
+	stretch(){
+		this.stretchCount++;
+		if(this.stretchCount <= 20){
+			return 0;
+		}else if(this.stretchCount <= 25){
+			return 1;
+		}else if(this.stretchCount <= 30){
+			return 2;
+		}else if(this.stretchCount <= 33){
+			return 3;
+		}else{
+			this.stretchCount = 0;
 		}
 	}
 

@@ -9,7 +9,7 @@ export default class Squash{
 		this.makeBase = new MakeBase();  //makeBaseインスタンスを作成
 		this.box = new Box();　　　　　　//Boxインスタンスを作成
 		this.makeBase.add(this.box);
-		this.box.position.y = 250;
+		this.box.position.y = 280;
 		this.animation = new AnimationSquash();
 		this.timer = new TimerSquash();  //Timerインスタンス作成
 		// this.box.scale.set(1, 2, 1);
@@ -25,7 +25,7 @@ export default class Squash{
 	// }
 
 	render(){
-		this.animation.updata(this.box, this.timer.move());
+		this.animation.updata(this.box, this.timer.move(), this.timer.stretch());
 		this.makeBase.render();
 	}
 
