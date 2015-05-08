@@ -1,6 +1,7 @@
 import MakeBase from './MakeBase'
 import Box from './Box'
 import AnimationSquash from './AnimationSquash'
+import TimerSquash from './TimerSquash'
 
 export default class Squash{
 
@@ -8,18 +9,24 @@ export default class Squash{
 		this.makeBase = new MakeBase();  //makeBaseインスタンスを作成
 		this.box = new Box();　　　　　　//Boxインスタンスを作成
 		this.makeBase.add(this.box);
-		this.box.position.y = 200;
+		this.box.position.y = 250;
 		this.animation = new AnimationSquash();
+		this.timer = new TimerSquash();  //Timerインスタンス作成
+		// this.box.scale.set(1, 2, 1);
+		// console.log(this.box.position);
 	}
 
 	getDomElement(){
 		return this.makeBase.getDomElement();
 	}
 
-	render(){
-		this.animation.updata(this.box);
-		this.makeBase.render();
+	// getGuiElement(){
+	// 	return this.animation.getDomElement();
+	// }
 
+	render(){
+		this.animation.updata(this.box, this.timer.move());
+		this.makeBase.render();
 	}
 
 }

@@ -16,15 +16,15 @@ export default class MakeBase {
 	setupCamera(){
 		this.camera = new THREE.PerspectiveCamera(40, this.width / this.height, 1, 1000);
 		this.camera.position.z = -800;
-		this.camera.position.y = 200;
-		this.camera.position.x = -100;
+		this.camera.position.y = 0;
+		this.camera.position.x = -200;
 		//this.camera.position.set(0,0,0);
 		this.camera.lookAt(new THREE.Vector3(0,0,0));
 	}
 
 	setupLight(){
 		var directionalLight = new THREE.DirectionalLight( 0xffffff, 1); //ライト作成
-		directionalLight.position.set( 200, 1000, -500);
+		directionalLight.position.set( -300, 1000, -500);
 		directionalLight.lookAt(new THREE.Vector3(0, 0, 0));
 		this.scene.add(directionalLight); //シーンにライトを追加する
 	}

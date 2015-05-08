@@ -6,6 +6,7 @@ window.onload = function(){  //レンダラーを作成して、最初のレン�
 	var container=document.getElementById('container');
 	squash = new Squash();
 	container.appendChild(squash.getDomElement()); //レンダラーをDOM上に設置
+	// container.appendChild(squash.getGuiElement()); //レンダラーをDOM上に設置
 	render();
 }
 
@@ -13,7 +14,7 @@ function render()
 {
 	squash.render();
 	requestAnimationFrame(render);
-	console.log(new Date().getTime() / 100000);
+	// console.log(new Date().getTime() / 100000);
 }
 
 
