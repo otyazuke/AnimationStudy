@@ -21,21 +21,19 @@ export default class TimerSquash {
 
 	stretch(){
 		this.stretchCount++;
-		if(this.stretchCount <= 14){
+		if(this.stretchCount <= 17){
 			return 0;
-		}else if(this.stretchCount <= 19){
+		}else if(this.stretchCount <= 26){
 			return 1;
-		}else if(this.stretchCount <= 30){
+		}else if(this.stretchCount <= 41){
 			return 2;
-		}else if(this.stretchCount <= 35){
+		}else if(this.stretchCount <= 48){
 			return 3;
-		}else if(this.stretchCount <= 60){
+		}else if(this.stretchCount <= 65){
 			return 4;
-		}else if(this.strethCount <= 65){
-			return 5;
 		}else if(this.stretchCount == 66){
 			this.stretchCount = 0;
-			return 5;
+			return 4;
 		}
 	}
 

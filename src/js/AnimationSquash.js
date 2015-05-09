@@ -11,6 +11,7 @@ export default class AnimationSqash{
 		this.moveCount = 0;
 		this.stretchAy = 0;
 		this.stretchCount = 0;
+		this.stretchCount2 = 0;
 	}
 
 	// getDomElement(){
@@ -26,12 +27,12 @@ export default class AnimationSqash{
 		}else if(moveFlag == 1){
 
 		}else if(moveFlag == 2){
-			console.log(this.moveCount);
+			// console.log(this.moveCount);
 			box.position.y += 47.5 * Math.cos(this.moveCount * 90 / 21 * (Math.PI / 180));
 			// console.log(Math.cos(this.moveCount * 90 / 21 * (Math.PI / 180)));
 			this.moveCount++;
 			if(this.moveCount == 22){
-				console.log(box.position.y);
+				// console.log(box.position.y);
 				box.position.y = 280;
 				this.moveCount = 0;
 				this.moveAy = 0;
@@ -39,26 +40,31 @@ export default class AnimationSqash{
 			}
 		}
 
-		// if (stretchFlag == 0){
-		// 	this.stretchAy += 0.035;
-		// 	box.scale.y += this.stretchAy;
-		// }else if(stretchFlag == 1){
-		// 	this.stretchCount++;
-		// 	box.scale.y -= (1.3 * Math.sin(10 * this.stretchCount * (Math.PI / 180)));
-		// 	console.log(box.scale.y);
-		// }else if (stretchFlag == 2){
-		// 	this.stretchCount = 0;
-		// 	box.scale.y += 0.06;
-		// }else if(stretchFlag == 3){
+		if (stretchFlag == 0){
+			this.stretchAy += 0.045;
+			box.scale.y += this.stretchAy;
+		}else if(stretchFlag == 1){
+			box.scale.y -= 0.83;
+		}else if (stretchFlag == 2){
+			box.scale.y -= 0.04 * Math.cos(this.stretchCount * 180 / 15 * (Math.PI / 180));
+			this.stretchCount++;
+		}
+		else if(stretchFlag == 3){
+			box.scale.y += 1;
+		}else if(stretchFlag == 4){
 
-		// }else if(stretchFlag == 4){
+			box.scale.y -= 0.35;
+			this.stretchCount2++;
+			
+			if(this.stretchCount2 == 18){
+				console.log(box.scale.y);
+				box.scale.y = 1;
+				this.stretchAy = 0;
+				this.stretchCount = 0;
+				this.stretchCount2 = 0;
 
-		// }else if(stretchFlag == 5){
-
-		// }else{
-		// 	box.scale.y = 1;
-		// 	this.stretchAy = 0;
-		// }
+			}
+		}
 
 
 
