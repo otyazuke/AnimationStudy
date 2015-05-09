@@ -8,7 +8,9 @@ export default class AnimationSqash{
 		// this.gui.add(this.params, 'z', -1, 1).listen();
 		this.moveAy = 0;
 		this.moveAy2= 0;
+		this.moveCount = 0;
 		this.stretchAy = 0;
+		this.stretchCount = 0;
 	}
 
 	// getDomElement(){
@@ -18,32 +20,45 @@ export default class AnimationSqash{
 	updata(box, moveFlag, stretchFlag){
 
 		if (moveFlag == 0){
-			this.moveAy2 += 0.24;
-			this.moveAy += (0.19 + this.moveAy2);
-			box.position.y -= (0 + this.moveAy);
+			this.moveAy2 += 0.3;
+			this.moveAy += (0.2 + this.moveAy2);
+			box.position.y -= this.moveAy;
+		}else if(moveFlag == 1){
+
 		}else if(moveFlag == 2){
-			box.position.y += 26.3;
-		}else{
-			this.moveAy = 0;
-			this.moveAy2 = 0;
+			console.log(this.moveCount);
+			box.position.y += 47.5 * Math.cos(this.moveCount * 90 / 21 * (Math.PI / 180));
+			// console.log(Math.cos(this.moveCount * 90 / 21 * (Math.PI / 180)));
+			this.moveCount++;
+			if(this.moveCount == 22){
+				console.log(box.position.y);
+				box.position.y = 280;
+				this.moveCount = 0;
+				this.moveAy = 0;
+				this.moveAy2 = 0;
+			}
 		}
 
-		if (stretchFlag == 0){
-			this.stretchAy += 0.03;
-			box.scale.y += this.stretchAy;
-		}else if(stretchFlag == 1){
-			console.log(box.scale.y);
-			this.stretchAy = 0;
-			box.scale.y -= 1.25;
-		}else if(stretchFlag == 2){
-			box.scale.y -= 0.05;
+		// if (stretchFlag == 0){
+		// 	this.stretchAy += 0.035;
+		// 	box.scale.y += this.stretchAy;
+		// }else if(stretchFlag == 1){
+		// 	this.stretchCount++;
+		// 	box.scale.y -= (1.3 * Math.sin(10 * this.stretchCount * (Math.PI / 180)));
+		// 	console.log(box.scale.y);
+		// }else if (stretchFlag == 2){
+		// 	this.stretchCount = 0;
+		// 	box.scale.y += 0.06;
+		// }else if(stretchFlag == 3){
 
+		// }else if(stretchFlag == 4){
 
+		// }else if(stretchFlag == 5){
 
-			console.log(box.scale.y);
-		}else if (stretchFlag == 3){
-			box.scale.y = 1;
-		}
+		// }else{
+		// 	box.scale.y = 1;
+		// 	this.stretchAy = 0;
+		// }
 
 
 
