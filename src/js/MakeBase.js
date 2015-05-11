@@ -15,7 +15,7 @@ export default class MakeBase {
 	}
 	setupCamera(){
 		this.camera = new THREE.PerspectiveCamera(40, this.width / this.height, 1, 10000);
-		this.camera.position.z = -1100;
+		this.camera.position.z = -1200;
 		this.camera.position.y = 0;
 		this.camera.position.x = -200;
 		//this.camera.position.set(0,0,0);

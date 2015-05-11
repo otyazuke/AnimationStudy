@@ -9,7 +9,7 @@ export default class TimerSquash {
 
 	move(){
 		this.moveCount++;
-		if (this.moveCount <= 22){
+		if (this.moveCount <= 15){
 			return 0;
 		}else if(this.moveCount <= 44){
 			return 1;
@@ -23,9 +23,9 @@ export default class TimerSquash {
 
 	stretch(){
 		this.stretchCount++;
-		if(this.stretchCount <= 17){
+		if(this.stretchCount <= 14){
 			return 0;
-		}else if(this.stretchCount <= 26){
+		}else if(this.stretchCount <= 15){
 			return 1;
 		}else if(this.stretchCount <= 41){
 			return 2;
@@ -41,14 +41,15 @@ export default class TimerSquash {
 
 	expand(){
 		this.expandCount++;
-		if(this.expandCount >= 23 && this.expandCount <= 44){
+		if(this.expandCount >= 15 && this.expandCount <= 16){
 			return 0;
-		}
-		else if (this.expandCount == 66){
+		}else if(this.expandCount >= 17 && this.expandCount <= 52){
+			return 1;
+		}else if (this.expandCount == 66){
 			this.expandCount = 0;
-			return 1;
+			return 2;
 		}else{
-			return 1;
+			return 2;
 		}
 	}
 

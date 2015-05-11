@@ -13,6 +13,7 @@ export default class AnimationSqash{
 		this.stretchCount = 0;
 		this.stretchCount2 = 0;
 		this.expandCount = 0;
+		this.expandCount2 = 0;
 	}
 
 	// getDomElement(){
@@ -22,7 +23,7 @@ export default class AnimationSqash{
 	updata(box, moveFlag, stretchFlag, expandFlag, rotateFlag){
 
 		if (moveFlag == 0){
-			this.moveAy2 += 0.3;
+			this.moveAy2 += 0.93;
 			this.moveAy += (0.2 + this.moveAy2);
 			box.position.y -= this.moveAy;
 		}else if(moveFlag == 1){
@@ -41,11 +42,17 @@ export default class AnimationSqash{
 			}
 		}
 
+		if(stretchFlag == -1){
+			
+			stretchFlag = 0;
+		}
+
 		if (stretchFlag == 0){
-			this.stretchAy += 0.045;
+			this.stretchAy += 0.09;
 			box.scale.y += this.stretchAy;
 		}else if(stretchFlag == 1){
-			box.scale.y -= 0.83;
+			box.scale.y -= 10;
+			console.log(box.scale.y);
 		}else if (stretchFlag == 2){
 			box.scale.y -= 0.04 * Math.cos(this.stretchCount * 180 / 15 * (Math.PI / 180));
 			this.stretchCount++;
@@ -66,16 +73,28 @@ export default class AnimationSqash{
 		}
 
 		if (expandFlag == 0){
-			box.scale.x += 0.3 * Math.cos(this.expandCount * 180 / 21 * (Math.PI / 180));
-			console.log(Math.cos(this.expandCount * 180 / 21 * (Math.PI / 180)));
-			box.scale.z += 0.3 * Math.cos(this.expandCount * 180 / 21 * (Math.PI / 180));
-
-			console.log(this.expandCount);
+			box.scale.x += 2;
+			box.scale.z += 2;
+			// box.scale.x += 1 * Math.cos(this.expandCount * 90 / 4 * (Math.PI / 180));
+			// box.scale.z += 1 * Math.cos(this.expandCount * 90 / 4 * (Math.PI / 180));
 
 			this.expandCount++;
 
-			if(this.expandCount == 22){
+			if(this.expandCount == 2){
 				this.expandCount = 0;
+			}
+		}else if(expandFlag == 1){
+			box.scale.x -= 0.175 * Math.cos(this.expandCount2 * 90 / 35 * (Math.PI / 180));
+			// console.log(Math.cos(this.expandCount * 180 / 21 * (Math.PI / 180)));
+			box.scale.z -= 0.175 * Math.cos(this.expandCount2 * 90 / 35 * (Math.PI / 180));
+
+			this.expandCount2++;
+
+			if(this.expandCount2 == 36){
+				console.log(box.scale.x);                    //
+				box.scale.x = 1;
+				box.scale.z = 1;
+				this.expandCount2 = 0;
 			}
 		}
 
