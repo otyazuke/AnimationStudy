@@ -23,18 +23,18 @@ export default class AnimationSqash{
 	updata(box, moveFlag, stretchFlag, expandFlag, rotateFlag){
 
 		if (moveFlag == 0){
-			this.moveAy2 += 0.93;
-			this.moveAy += (0.2 + this.moveAy2);
+			this.moveAy2 += 0.97;
+			this.moveAy += (0.1 + this.moveAy2);
 			box.position.y -= this.moveAy;
 		}else if(moveFlag == 1){
 
 		}else if(moveFlag == 2){
 			// console.log(this.moveCount);
-			box.position.y += 47.5 * Math.cos(this.moveCount * 90 / 21 * (Math.PI / 180));
+			box.position.y += 48.5 * Math.cos(this.moveCount * 90 / 21 * (Math.PI / 180));
 			// console.log(Math.cos(this.moveCount * 90 / 21 * (Math.PI / 180)));
 			this.moveCount++;
 			if(this.moveCount == 22){
-				// console.log(box.position.y);
+				console.log(box.position.y);
 				box.position.y = 280;
 				this.moveCount = 0;
 				this.moveAy = 0;
@@ -43,7 +43,7 @@ export default class AnimationSqash{
 		}
 
 		if(stretchFlag == -1){
-			
+
 			stretchFlag = 0;
 		}
 
