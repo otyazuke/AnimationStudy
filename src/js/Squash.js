@@ -25,7 +25,7 @@ export default class Squash{
 	// }
 
 	render(){
-		this.animation.updata(this.box, this.timer.move(), this.timer.stretch());
+		this.animation.updata(this.box, this.timer.move(), this.timer.stretch(), this.timer.expand(), this.timer.rotate());
 		this.makeBase.render();
 	}
 

@@ -12,13 +12,14 @@ export default class AnimationSqash{
 		this.stretchAy = 0;
 		this.stretchCount = 0;
 		this.stretchCount2 = 0;
+		this.expandCount = 0;
 	}
 
 	// getDomElement(){
 	// 	return this.gui.domElement;
 	// }
 
-	updata(box, moveFlag, stretchFlag){
+	updata(box, moveFlag, stretchFlag, expandFlag, rotateFlag){
 
 		if (moveFlag == 0){
 			this.moveAy2 += 0.3;
@@ -52,22 +53,35 @@ export default class AnimationSqash{
 		else if(stretchFlag == 3){
 			box.scale.y += 1;
 		}else if(stretchFlag == 4){
-
-			box.scale.y -= 0.35;
+			// console.log(box.scale.y);
+			box.scale.y -= 0.533 * Math.cos(this.stretchCount2 * 90 / 18 * (Math.PI / 180));
 			this.stretchCount2++;
-			
 			if(this.stretchCount2 == 18){
-				console.log(box.scale.y);
+				// console.log(box.scale.y);
 				box.scale.y = 1;
 				this.stretchAy = 0;
 				this.stretchCount = 0;
 				this.stretchCount2 = 0;
-
 			}
 		}
 
+		if (expandFlag == 0){
+			box.scale.x += 0.3 * Math.cos(this.expandCount * 180 / 21 * (Math.PI / 180));
+			console.log(Math.cos(this.expandCount * 180 / 21 * (Math.PI / 180)));
+			box.scale.z += 0.3 * Math.cos(this.expandCount * 180 / 21 * (Math.PI / 180));
 
+			console.log(this.expandCount);
 
+			this.expandCount++;
+
+			if(this.expandCount == 22){
+				this.expandCount = 0;
+			}
+		}
+
+		if(rotateFlag == 0){
+			box.rotation.y -= 180 / 19 * (Math.PI / 180);
+		}
 
 
 		// box.geometry.applyMatrix( new THREE.Matrix4().makeTranslation(this.params.x, this.params.y, this.params.z) );

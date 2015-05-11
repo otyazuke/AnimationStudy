@@ -3,6 +3,8 @@ export default class TimerSquash {
 	constructor(){
 		this.moveCount = 0;
 		this.stretchCount = 0;
+		this.expandCount = 0;
+		this.rotateCount= 0;
 	}
 
 	move(){
@@ -36,6 +38,32 @@ export default class TimerSquash {
 			return 4;
 		}
 	}
+
+	expand(){
+		this.expandCount++;
+		if(this.expandCount >= 23 && this.expandCount <= 44){
+			return 0;
+		}
+		else if (this.expandCount == 66){
+			this.expandCount = 0;
+			return 1;
+		}else{
+			return 1;
+		}
+	}
+
+	rotate(){
+		this.rotateCount++;
+		if(this.rotateCount >= 114 && this.rotateCount <= 132){
+			if(this.rotateCount == 132){
+				this.rotateCount = 0;
+			}
+			return 0;
+		}else{
+			return 1;
+		}
+	}
+
 
 	// bottomSurface(){
 	// 	this.bottomCount++
