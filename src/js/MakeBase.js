@@ -1,8 +1,8 @@
 export default class MakeBase {
 
 	constructor(){
-		this.width = 640;
-		this.height = 480;
+		this.width = 840;
+		this.height = 398;
 		this.setupRenderer();
 		this.setupCamera();
 		this.setupLight();
@@ -43,9 +43,9 @@ export default class MakeBase {
 		if (mesh instanceof THREE.Object3D){
 			this.scene.add(mesh);
 			//AxisHelperを追加
-			var axis = new THREE.AxisHelper(1000);
-			axis.position.set(0,0,0);
-			this.scene.add(axis);
+			// var axis = new THREE.AxisHelper(1000);
+			// axis.position.set(0,0,0);
+			// this.scene.add(axis);
 		}else{
 			console.log("not mesh")
 		}

@@ -5,6 +5,7 @@ export default class TimerSquash {
 		this.stretchCount = 0;
 		this.expandCount = 0;
 		this.rotateCount= 0;
+		this.actionBoxCount = 0;
 	}
 
 	move(){
@@ -62,6 +63,18 @@ export default class TimerSquash {
 			return 0;
 		}else{
 			return 1;
+		}
+	}
+
+	actionBox(){
+		this.actionBoxCount++;
+		if(this.actionBoxCount >= 5 && this.actionBoxCount <= 15){
+			return 0;
+		}else if(this.actionBoxCount == 66){
+			this.actionBoxCount = 0;
+			return 1;
+		}else{
+			return 2;
 		}
 	}
 

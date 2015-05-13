@@ -20,7 +20,7 @@ export default class AnimationSqash{
 	// 	return this.gui.domElement;
 	// }
 
-	updata(box, moveFlag, stretchFlag, expandFlag, rotateFlag){
+	updata(box, moveFlag, stretchFlag, expandFlag, rotateFlag, box1, box2, box3, actionBoxFlag){
 
 		if (moveFlag == 0){
 			this.moveAy2 += 0.97;
@@ -101,6 +101,23 @@ export default class AnimationSqash{
 		if(rotateFlag == 0){
 			box.rotation.y -= 180 / 19 * (Math.PI / 180);
 		}
+
+		if(actionBoxFlag == 0){
+			box1.scale.y += 7;
+			box2.scale.y += 7;
+			box3.scale.y += 7;
+		}else if(actionBoxFlag){
+			box1.scale.y = 0;
+			box2.scale.y = 0;
+			box3.scale.y = 0;
+		}
+
+
+
+
+
+
+
 
 
 		// box.geometry.applyMatrix( new THREE.Matrix4().makeTranslation(this.params.x, this.params.y, this.params.z) );
