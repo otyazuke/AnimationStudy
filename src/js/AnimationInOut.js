@@ -1,3 +1,6 @@
+import MakeEdge from './MakeEdge'
+import MakeBase from './MakeBase'
+
 export default class AnimationInOut{
 
 	constructor(){
@@ -6,11 +9,9 @@ export default class AnimationInOut{
 
 	update(box){
 
-		var timeLine = new TimelineMax({repeat:-1});
+		// this.makeBase = new MakeBase;
 
-		timeLine.to(box.position, 2.5, {x: 700, ease: Power3.easeInOut// repeat: -1, yoyo: true,
-		})
-		.to(box.position, 2.5, {x: -700, ease: Power3.easeInOut});
+		
 
 		// if(moveFlag == 0){
 		// 	// box.position.x += 30 * Math.sin(this.moveCount * 180 / 104 * (Math.PI / 180));
