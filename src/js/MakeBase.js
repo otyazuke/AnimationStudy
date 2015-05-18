@@ -40,15 +40,11 @@ export default class MakeBase {
 	}
 
 	add(mesh){
-		if (mesh instanceof THREE.Object3D){
-			this.scene.add(mesh);
-			//AxisHelperを追加
-			// var axis = new THREE.AxisHelper(1000);
-			// axis.position.set(0,0,0);
-			// this.scene.add(axis);
-		}else{
-			console.log("not mesh")
-		}
+		this.scene.add(mesh);
+		//AxisHelperを追加
+		// var axis = new THREE.AxisHelper(1000);
+		// axis.position.set(0,0,0);
+		// this.scene.add(axis);
 	}
 }
 
