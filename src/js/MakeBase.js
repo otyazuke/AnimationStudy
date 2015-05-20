@@ -39,12 +39,16 @@ export default class MakeBase {
 		return this.renderer.domElement;
 	}
 
-	add(mesh){
+	add(mesh){						//meshをシーンに追加
 		this.scene.add(mesh);
 		//AxisHelperを追加
 		// var axis = new THREE.AxisHelper(1000);
 		// axis.position.set(0,0,0);
 		// this.scene.add(axis);
+	}
+
+	remove(mesh){						//meshをシーンから削除
+		this.scene.remove(mesh);
 	}
 }
 

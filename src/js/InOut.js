@@ -19,8 +19,8 @@ export default class InOut{
 		this.box.scale.y = 3;
 		this.box.scale.z = 3;
 		this.makeBase.add(this.box);					//sceneにBoxを追加
-		this.edge = new MakeEdge();						//Edgeインスタンスを作成
-		this.makeBase.add(this.edge);					//Edgeインスタンスを追加
+		// this.edge = new MakeEdge();						//Edgeインスタンスを作成
+		// this.makeBase.add(this.edge);					//Edgeインスタンスを追加
 		this.animationInOut = new AnimationInOut();
 		this.animationInOut.update(this.box);				//boxをTweenMaxで動かす
 		// this.timerInOut = new TimerInOut();
@@ -38,19 +38,41 @@ export default class InOut{
 
 		var tmpMakeBase = this.makeBase;
 		var tmpBox = this.box;
+		var count = 0;
+		var opacityCount = 1;
 
-		TweenMax.to(this.box.position, 2.6,{
+		TweenMax.to(this.box, 2.6,{
+			repeat: -1,
 			onUpdate: function() {
-				// console.log("this",tmpBox);
-				var box = new MakeEdge();
-				box.position.x = tmpBox.position.x;
-				tmpMakeBase.add(box);
-				console.log(tmpBox.position.x);
+				count++;
+				opacityCount -= 0.01;
+				if(count == 1){
+					var box = new MakeEdge();		//edge用のboxを作成
+					var edge = new THREE.EdgesHelper(box, "#ffff00");		//boxのedgeを作成
+					edge.material.linewidth = 1;
+					box.position.x = tmpBox.position.x;
+					box.position.z = tmpBox.position.z + 3;
+					box.material.opacity = 0;					//boxを透明に
+					tmpMakeBase.add(box);
+					tmpMakeBase.add(edge);
+					edge.material.transparent = true;   //opacityを変更してedgeを透明に変更できるようにする
+					edge.material.opacity = 1;
+					TweenMax.to(edge.material, 2,{					//edgeのアニメーション　透明にする
+						opacity:0, 
+						onComplete: function(){				//アニメーション終了時に実行
+							tmpMakeBase.remove(box);
+							tmpMakeBase.remove(edge);
+					}
+				});
+
+				}
+				if(count == 7){
+					count = 0;
+				}
 			}
 		});
 
 
-		console.log(2);
 
 	}
 
