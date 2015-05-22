@@ -6,6 +6,27 @@ html
   body#main
     div#container
     div#container2
+    div#container3
+
+    canvas#canvas
+
+    //頂点シェーダ
+    //
+        script#vs(type="x-shader/x-vertex").
+        attribute vec3 position;
+        attribute ec4 color;
+        uniform mat4 matrix;
+        varying vec4 vColor;
+        void main (void){
+            vColor = color;
+            gl_Position = matrix * position;
+        }
+    //フラグメントシェーダ
+    //
+        script#fs(type="x-shader/x-fragment").
+        precision mediupmp float;
+        varyingvec4 vColor;
+        gl_FlagColor = vColor;
     script(src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r71/three.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.16.1/TweenMax.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.5/dat.gui.min.js")
