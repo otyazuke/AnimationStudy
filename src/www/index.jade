@@ -3,16 +3,8 @@ html
   head
     meta(charset="UTF-8")
     title="タイトル"
-  body#main
-    div#container
-    div#container2
-    div#container3
-
-    canvas#canvas
-
     //頂点シェーダ
-    //
-        script#vs(type="x-shader/x-vertex").
+    script#vs(type="x-shader/x-vertex").
         attribute vec3 position;
         attribute ec4 color;
         uniform mat4 matrix;
@@ -22,11 +14,17 @@ html
             gl_Position = matrix * position;
         }
     //フラグメントシェーダ
-    //
-        script#fs(type="x-shader/x-fragment").
-        precision mediupmp float;
-        varyingvec4 vColor;
-        gl_FlagColor = vColor;
+    script#fs(type="x-shader/x-fragment").
+    precision mediupmp float;
+    varyingvec4 vColor;
+    gl_FlagColor = vColor;
+  body#main
+    div#container
+    div#container2
+    div#container3
+
+    canvas#canvas
+
     script(src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r71/three.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.16.1/TweenMax.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.5/dat.gui.min.js")
