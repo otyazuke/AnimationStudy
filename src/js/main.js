@@ -36,12 +36,12 @@ window.onload = function(){  //レンダラーを作成して、最初のレン�
 	var prg = create_program(v_shader, f_shader);		//プログラムオブジェクトの生成とリンク
 
 	var attLocation = new Array(2);			//attributeLocationを配列に取得
-	var attLocation[0] = gl.getAttribLocation(prg, 'position');		//attributeLocationの取得
-	var attLocation[1] = gl.getAttribLocation(prg, 'color');		//attributeLocationの取得
+	attLocation[0] = gl.getAttribLocation(prg, 'position');		//attributeLocationの取得
+	attLocation[1] = gl.getAttribLocation(prg, 'color');		//attributeLocationの取得
 
 	var attStride = new Array(2);			//attribute要素数を配列に取得
-	var attStride[0] = 3;		//attributeの要素数（この場合はxyzの３種類）
-	var attStride[1] = 4;
+	attStride[0] = 3;		//attributeの要素数（この場合はxyzの３種類）
+	attStride[1] = 4;
 
 	var vertex_position = [			//モデル（頂点）データ
 		//x,   y,   z
@@ -53,13 +53,19 @@ window.onload = function(){  //レンダラーを作成して、最初のレン�
 	var vertex_color = [			//頂点の色情報を格納する配列
 		1.0, 0.0, 0.0, 1.0,
 		0.0, 1.0, 0.0, 1.0,
-		0.0, 0.0, 1.0, 0.0
+		0.0, 0.0, 1.0, 1.0
 	];
 
-	var vbo = create_vbo(vertex_position);		//VBOの生成
-	gl.bindBuffer(gl.ARRAY_BUFFER, vbo);		//vboをバインド
-	gl.enableVertexAttribArray(attLocation);		//attribute属性を有効にする
-	gl.vertexAttribPointer(attLocation, attStride, gl.FLOAT, false, 0, 0);		//attribute属性を登録
+	var position_vbo = create_vbo(vertex_position);		//VBOの生成
+	var color_vbo = create_vbo(vertex_color);		//VBOの生成
+	//位置情報
+	gl.bindBuffer(gl.ARRAY_BUFFER, position_vbo);		//vboをバインド
+	gl.enableVertexAttribArray(attLocation[0]);		//attribute属性を有効にする
+	gl.vertexAttribPointer(attLocation[0], attStride[0], gl.FLOAT, false, 0, 0);		//attribute属性を登録
+	//色情報
+	gl.bindBuffer(gl.ARRAY_BUFFER, color_vbo);		//vboをバインド
+	gl.enableVertexAttribArray(attLocation[1]);		//attribute属性を有効にする
+	gl.vertexAttribPointer(attLocation[1], attStride[1], gl.FLOAT, false, 0, 0);		//attribute属性を登録
 
 	var m = new matIV();		//matIVオブジェクトを生成
 	// var Matrix = m.create();		//行列の生成
