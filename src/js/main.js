@@ -26,9 +26,6 @@ window.onload = function(){  //レンダラーを作成して、最初のレン�
 	c.width = 840;
 	c.height = 398;
 	var gl = c.getContext('webgl');			//webGLコンテキストを取得
-	gl.clearColor(0.0, 0.0, 0.0, 1.0);      //canvasを初期化する色を設定
-	gl.clearDepth(1.0);		//canvasを初期化する際の深度を設定
-	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);		//canvasを初期化
 
 	var v_shader = create_shader('vs');		//頂点シェーダの生成
 	var f_shader = create_shader('fs');		//フラグメントシェーダの生成
@@ -47,30 +44,34 @@ window.onload = function(){  //レンダラーを作成して、最初のレン�
 		//x,   y,   z
 		0.0, 1.0, 0.0,
 		1.0, 0.0, 0.0,
-		-1.0, 0.0, 0.0
+		-1.0, 0.0, 0.0,
+		0.0, -1.0, 0.0
 	];
 
 	var vertex_color = [			//頂点の色情報を格納する配列
 		1.0, 0.0, 0.0, 1.0,
 		0.0, 1.0, 0.0, 1.0,
-		0.0, 0.0, 1.0, 1.0
+		0.0, 0.0, 1.0, 1.0,
+		1.0, 1.0, 1.0, 1.0
 	];
+
+	var index = [		//頂点インデックスを格納する配列
+		0, 1, 2,
+		1, 2, 3
+	]
 
 	var position_vbo = create_vbo(vertex_position);		//VBOの生成
 	var color_vbo = create_vbo(vertex_color);		//VBOの生成
-	//位置情報
-	gl.bindBuffer(gl.ARRAY_BUFFER, position_vbo);		//vboをバインド
-	gl.enableVertexAttribArray(attLocation[0]);		//attribute属性を有効にする
-	gl.vertexAttribPointer(attLocation[0], attStride[0], gl.FLOAT, false, 0, 0);		//attribute属性を登録
-	//色情報
-	gl.bindBuffer(gl.ARRAY_BUFFER, color_vbo);		//vboをバインド
-	gl.enableVertexAttribArray(attLocation[1]);		//attribute属性を有効にする
-	gl.vertexAttribPointer(attLocation[1], attStride[1], gl.FLOAT, false, 0, 0);		//attribute属性を登録
+	
+	set_attribute([position_vbo, color_vbo], attLocation, attStride);		//VBOを登録
+
+	var ibo = create_ibo(index);		//IBOnの生成
+
+	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ibo);		//iboをバインドして登録する
+
+	var uniLocation = gl.getUniformLocation(prg, 'mvpMatrix');		//uniFormLocationの取得
 
 	var m = new matIV();		//matIVオブジェクトを生成
-	// var Matrix = m.create();		//行列の生成
-	// m.identity(Matrix);			//行列の初期化
-	// m.translate(Matrix, [1.0, 0.0, 0.0, 0.0], Matrix);		//モデル変換行列に移動成分を与える例
 
 	var mMatrix = m.identity(m.create());		//モデル変換行列
 	var vMatrix = m.identity(m.create());		//ビュー変換行列
@@ -78,26 +79,35 @@ window.onload = function(){  //レンダラーを作成して、最初のレン�
 	var tmpMatrix = m.identity(m.create());		//
 	var mvpMatrix = m.identity(m.create());		//最終変換行列
 
-	m.lookAt([0.0, 0.0, 3.0], [0, 0, 0], [0, 1, 0], vMatrix);		//ビュー座標変換行列
-	m.perspective(90, c.width/c.height, 0.1, 100, pMatrix);		//プロジェクション変換行列
+	m.lookAt([0.0, 0.0, 5.0], [0, 0, 0], [0, 1, 0], vMatrix);		//ビュー座標変換行列
+	m.perspective(45, c.width/c.height, 0.1, 100, pMatrix);		//プロジェクション変換行列
+	m.multiply(pMatrix, vMatrix, tmpMatrix);		//tmpを作る
 
-	//各行列を掛け合わせる順序を示す一例
-	m.multiply(pMatrix, vMatrix, tmpMatrix);		//pにvを掛ける
-	m.translate(mMatrix, [1.5, 0.0, 0.0], mMatrix);		//１つめのモデルをいどうするための座標変換行列
-	m.multiply(tmpMatrix, mMatrix, mvpMatrix);		//さらにmをかける(１つめのモデル)
+	var count = 0;		//カウンタの宣言
 
-	var uniLocation = gl.getUniformLocation(prg, 'mvpMatrix');		//uniFormLocationの取得
-	gl.uniformMatrix4fv(uniLocation, false, mvpMatrix);			//uniformLocationへ座標変換行列を登録
-	gl.drawArrays(gl.TRIANGLES, 0, 3);		//モデルの描画
+	roop();
 
-	m.identity(mMatrix);		//２つめの座標変換行列作成のため初期化
-	m.translate(mMatrix, [-1.5, 0.0, 0.0], mMatrix);
-	m.multiply(tmpMatrix, mMatrix, mvpMatrix);
+	function roop(){
+		gl.clearColor(0.0, 0.0, 0.0, 1.0);      //canvasを初期化する色を設定
+		gl.clearDepth(1.0);		//canvasを初期化する際の深度を設定
+		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);		//canvasを初期化
 
-	gl.uniformMatrix4fv(uniLocation, false, mvpMatrix);			//uniformLocationへ座標変換行列を登録
-	gl.drawArrays(gl.TRIANGLES, 0, 3);
+		count++;		//カウンタをインクリメント
 
-	gl.flush();			//コンテキストの再描画
+		var rad = (count % 360) * Math.PI / 180;		//カウンタをもとにラジアンを算出
+
+		m.identity(mMatrix);
+		m.rotate(mMatrix, rad, [0, 1, 0], mMatrix);
+		m.multiply(tmpMatrix, mMatrix, mvpMatrix);
+		gl.uniformMatrix4fv(uniLocation, false, mvpMatrix);
+
+		gl.drawElements(gl.TRIANGLES, index.length, gl.UNSIGNED_SHORT, 0);		//インデックスを用いた描画
+		gl.flush();
+
+		console.log(11111111);
+
+		setTimeout(roop, 1000 / 30);
+	};
 
 	function create_shader(id){		//シェーダを生成、コンパイルする関数
 		var shader;		//シェーダを格納する変数
@@ -145,7 +155,7 @@ window.onload = function(){  //レンダラーを作成して、最初のレン�
 		}
 	}
 
-	function create_vbo(data){
+	function create_vbo(data){		//VBOを生成する関数
 		var vbo = gl.createBuffer();		//バッファオブジェクトの生成
 
 		gl.bindBuffer(gl.ARRAY_BUFFER, vbo);		//バッファをバインド
@@ -155,6 +165,28 @@ window.onload = function(){  //レンダラーを作成して、最初のレン�
 		gl.bindBuffer(gl.ARRAY_BUFFER, null);		//バッファのバインドを無効化
 
 		return vbo;		//生成したVBOを返す
+	}
+
+	function set_attribute(vbo, attL, attS){		//VBOをバインドし登録する関数
+		//引数として受け取った配列を処理する
+		for(var i in vbo){
+			gl.bindBuffer(gl.ARRAY_BUFFER, vbo[i]);		//バッファをバインドする
+			gl.enableVertexAttribArray(attL[i]);		//attributeLocationを有効にする
+			gl.vertexAttribPointer(attL[i], attS[i], gl.FLOAT, false, 0, 0);		//attributeLncationを通知し登録する
+		}
+
+	}
+
+	function create_ibo(data){
+		var ibo = gl.createBuffer();		//バッフォオブジェクトの生成
+
+		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ibo);		//バッファをバインドする
+
+		gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Int16Array(data), gl.STATIC_DRAW);		//バッファにデータをセット
+
+		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);		//バッファのバインドを無効化
+
+		return ibo;		//生成したIBOを返して終了
 	}
 }
 
