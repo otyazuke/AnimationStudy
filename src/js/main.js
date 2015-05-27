@@ -75,21 +75,27 @@ window.onload = function(){  //レンダラーを作成して、最初のレン�
 	var mMatrix = m.identity(m.create());		//モデル変換行列
 	var vMatrix = m.identity(m.create());		//ビュー変換行列
 	var pMatrix = m.identity(m.create());		//プロジェクション変換行列
+	var tmpMatrix = m.identity(m.create());		//
 	var mvpMatrix = m.identity(m.create());		//最終変換行列
 
-	m.lookAt([0.0, 1.0, 3.0], [0, 0, 0], [0, 1, 0], vMatrix);		//ビュー座標変換行列
-
+	m.lookAt([0.0, 0.0, 3.0], [0, 0, 0], [0, 1, 0], vMatrix);		//ビュー座標変換行列
 	m.perspective(90, c.width/c.height, 0.1, 100, pMatrix);		//プロジェクション変換行列
 
 	//各行列を掛け合わせる順序を示す一例
-	m.multiply(pMatrix, vMatrix, mvpMatrix);		//pにvを掛ける
-	m.multiply(mvpMatrix, mMatrix, mvpMatrix);		//さらにmをかける
+	m.multiply(pMatrix, vMatrix, tmpMatrix);		//pにvを掛ける
+	m.translate(mMatrix, [1.5, 0.0, 0.0], mMatrix);		//１つめのモデルをいどうするための座標変換行列
+	m.multiply(tmpMatrix, mMatrix, mvpMatrix);		//さらにmをかける(１つめのモデル)
 
 	var uniLocation = gl.getUniformLocation(prg, 'mvpMatrix');		//uniFormLocationの取得
+	gl.uniformMatrix4fv(uniLocation, false, mvpMatrix);			//uniformLocationへ座標変換行列を登録
+	gl.drawArrays(gl.TRIANGLES, 0, 3);		//モデルの描画
+
+	m.identity(mMatrix);		//２つめの座標変換行列作成のため初期化
+	m.translate(mMatrix, [-1.5, 0.0, 0.0], mMatrix);
+	m.multiply(tmpMatrix, mMatrix, mvpMatrix);
 
 	gl.uniformMatrix4fv(uniLocation, false, mvpMatrix);			//uniformLocationへ座標変換行列を登録
-
-	gl.drawArrays(gl.TRIANGLES, 0, 3);		//モデルの描画
+	gl.drawArrays(gl.TRIANGLES, 0, 3);
 
 	gl.flush();			//コンテキストの再描画
 
