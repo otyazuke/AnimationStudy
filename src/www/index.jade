@@ -20,6 +20,20 @@ html
         void main(void){
             gl_FragColor = vColor;
         }
+        //頂点シェーダ
+    script#vertexAction(type="x-shader/x-vertex").
+        uniform mat4 mvpMatrix;
+        void main(void){
+            gl_Position = mvpMatrix * vec4(position, 1.0);
+        }
+    //フラグメントシェーダ
+    script#fragmentAction(type="x-shader/x-fragment").
+        precision mediump float;
+        varying vec4 vColor;
+        void main(void){
+            gl_FragColor = vColor;
+        }
+
   body#main
     div#container
     div#container2

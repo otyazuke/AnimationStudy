@@ -70,11 +70,6 @@ window.onload = function(){  //レンダラーを作成して、最初のレン�
 	// 	1, 2, 3
 	// ]
 
-	// var position_vbo = create_vbo(vertex_position);		//VBOの生成
-	// var color_vbo = create_vbo(vertex_color);		//VBOの生成
-	
-	// set_attribute([position_vbo, color_vbo], attLocation, attStride);		//VBOを登録
-
 	var ibo = create_ibo(index);		//IBOの生成
 
 	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ibo);		//iboをバインドして登録する
@@ -117,8 +112,6 @@ window.onload = function(){  //レンダラーを作成して、最初のレン�
 
 		gl.drawElements(gl.TRIANGLES, index.length, gl.UNSIGNED_SHORT, 0);		//インデックスを用いた描画
 		gl.flush();
-
-		console.log(11111111);
 
 		setTimeout(roop, 1000 / 30);
 	};
