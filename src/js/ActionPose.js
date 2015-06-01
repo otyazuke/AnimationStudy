@@ -34,5 +34,11 @@ export default class ActionPose{
 
 	render(){
 		this.shaderBase.render();
+		if(this.shaderBox.material.__webglShader.uniforms.ratio.value < 1){
+			this.shaderBox.material.__webglShader.uniforms.ratio.value += 0.015;
+		}
+		console.log(this.shaderBox.material.__webglShader.uniforms.ratio.value);
+		// debugger;
 	}
 }
+
