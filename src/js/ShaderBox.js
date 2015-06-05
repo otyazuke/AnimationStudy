@@ -2,7 +2,7 @@ export default class ShaderBox extends THREE.Mesh{
 
 	constructor(){
 		// var pyramidGeometry = new THREE.CylinderGeometry(0, 450, 450, 4, 100, true);	//四角錐作成
-		var cubeGeometry = new THREE.CubeGeometry(200, 200, 200, 11, 11, 11);  //立方体作成
+		var cubeGeometry = new THREE.CubeGeometry(200, 200, 200, 15, 15, 15);  //立方体作成
 		var uniforms = {
 			ratio: { type:'f', value: 0},
 			ratio2: { type:'f', value: 0},
@@ -14,7 +14,7 @@ export default class ShaderBox extends THREE.Mesh{
 			// pyramidPosition: { type: 'v3v', value: tmpPosition}
 		};
 		var shader_material = new THREE.ShaderMaterial({
-			// wireframe: true,
+			wireframe: true,
 			uniforms: uniforms,
 			attributes: attributes,
 			vertexShader: [

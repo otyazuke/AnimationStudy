@@ -43,6 +43,10 @@ export default class ActionPose{
 		if(this.shaderCount >= 0.5 && this.shaderCount < 1){
 			this.shaderBox.material.__webglShader.uniforms.ratio2.value += 0.02;
 			this.shaderBox.material.__webglShader.uniforms.ratio.value -= 0.02;
+			// this.shaderBox.rotation.y -= 180 / 19 * (Math.PI / 180);
+			// TweenMax.to(this.shaderBox, 0.5, {
+			// 	rotation: 360
+			// });
 			this.shaderCount += 0.01;
 		}
 		if(this.shaderCount >= 1 && this.shaderCount < 1.5){
