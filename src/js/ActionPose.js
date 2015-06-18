@@ -14,6 +14,7 @@ export default class ActionPose{
 		this.shaderBox.scale.y = 3;
 		this.shaderBox.scale.z = 3;
 		this.shaderCount = 0;
+		this.sinCount = 0;
 
 		// var myshaderUniforms;
 		// myshaderUniforms= {};
@@ -35,30 +36,34 @@ export default class ActionPose{
 
 	render(){
 		this.shaderBase.render();
-		if(this.shaderCount < 0.5){
+		if(this.shaderCount < 0.25){
 			this.shaderBox.material.__webglShader.uniforms.ratio.value = 1;
 			this.shaderCount += 0.01;
 		}
 		// debugger;
-		if(this.shaderCount >= 0.5 && this.shaderCount < 1){
+		if(this.shaderCount >= 0.25 && this.shaderCount < 0.75){
 			this.shaderBox.material.__webglShader.uniforms.ratio2.value += 0.02;
 			this.shaderBox.material.__webglShader.uniforms.ratio.value -= 0.02;
-			// this.shaderBox.rotation.y -= 180 / 19 * (Math.PI / 180);
+			this.shaderBox.rotation.y -= 0.2 * Math.sin(this.sinCount * (Math.PI / 180)) * Math.sin(this.sinCount * (Math.PI / 180));
+			this.sinCount += 3.6;
 			// TweenMax.to(this.shaderBox, 0.5, {
 			// 	rotation: 360
 			// });
 			this.shaderCount += 0.01;
 		}
-		if(this.shaderCount >= 1 && this.shaderCount < 1.5){
+		if(this.shaderCount >= 0.75 && this.shaderCount < 1){
 			this.shaderCount += 0.01;
+			this.sinCount = 0;
 		}
-		if(this.shaderCount >= 1.5 && this.shaderCount < 2){
+		if(this.shaderCount >= 1 && this.shaderCount < 1.5){
 			this.shaderBox.material.__webglShader.uniforms.ratio.value = 0;
 			this.shaderBox.material.__webglShader.uniforms.ratio3.value += 0.02;
 			this.shaderBox.material.__webglShader.uniforms.ratio2.value -= 0.02;
+			this.shaderBox.rotation.y -= 0.2 * Math.sin(this.sinCount * (Math.PI / 180));
+			this.sinCount += 3.6;
 			this.shaderCount += 0.01;
 		}
-		if(this.shaderCount >= 2){
+		if(this.shaderCount >= 1.75){
 			this.shaderBox.material.__webglShader.uniforms.ratio2.value = 0;
 		}
 		console.log(this.shaderBox.material.__webglShader.uniforms.ratio.value);
