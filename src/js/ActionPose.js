@@ -66,10 +66,9 @@ export default class ActionPose{
 		if(this.shaderCount >= 1.75){
 			this.shaderBox.material.__webglShader.uniforms.ratio2.value = 0;
 		}
-		console.log(this.shaderBox.material.__webglShader.uniforms.ratio.value);
-		console.log(this.shaderBox.material.__webglShader.uniforms.ratio2.value);
-		console.log(this.shaderBox.material.__webglShader.uniforms.ratio3.value);
+		// console.log(this.shaderBox.material.__webglShader.uniforms.ratio.value);
+		// console.log(this.shaderBox.material.__webglShader.uniforms.ratio2.value);
+		// console.log(this.shaderBox.material.__webglShader.uniforms.ratio3.value);
 		// debugger;
 	}
 }
-

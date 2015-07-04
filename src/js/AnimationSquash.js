@@ -1,5 +1,5 @@
 export default class AnimationSqash{
-	
+
 	constructor(){
 		// this.params = {x:0, y:0, z:0};
 		// this.gui = new dat.GUI();
@@ -99,9 +99,9 @@ export default class AnimationSqash{
 			box2.scale.y += 7;
 			box3.scale.y += 7;
 		}else if(actionBoxFlag){
-			box1.scale.y = 0;
-			box2.scale.y = 0;
-			box3.scale.y = 0;
+			box1.scale.y = 0.001;
+			box2.scale.y = 0.1;
+			box3.scale.y = 0.1;
 		}
 
 
@@ -114,10 +114,10 @@ export default class AnimationSqash{
 
 		// box.geometry.applyMatrix( new THREE.Matrix4().makeTranslation(this.params.x, this.params.y, this.params.z) );
 		//Math.absで絶対値表示　toFixedで小数点以下切捨て
-		// box.scale.y = Math.abs(Math.sin(new Date().getTime() / 500) * 2); 
+		// box.scale.y = Math.abs(Math.sin(new Date().getTime() / 500) * 2);
 		// box.translateY(-0.5);
 		// box.geometry.applyMatrix( new THREEMatrix4().setTranslation(0, 10, 0) );
-		
+
 		// if (bottomFlag == 0){
 		// 	box.geometry.applyMatrix( new THREE.Matrix4().makeTranslation(0, -40, 0) );  //Boxの中心を移動する
 		// 	box.scale.y += 0.05;
